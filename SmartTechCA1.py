@@ -27,28 +27,6 @@ def filter_cifar100(cifar100_x_train, cifar100_y_train, cifar100_x_test, cifar10
     
     return cifar100_x_train_filtered, cifar100_y_train_filtered, cifar100_x_test_filtered, cifar100_y_test_filtered
 
-# Filter CIFAR10 and CIFAR100 data
-cifar10_x_train_filtered, cifar10_y_train_filtered, cifar10_x_test_filtered, cifar10_y_test_filtered = filter_cifar10(cifar10_x_train, cifar10_y_train, cifar10_x_test, cifar10_y_test)
-cifar100_x_train_filtered, cifar100_y_train_filtered, cifar100_x_test_filtered, cifar100_y_test_filtered = filter_cifar100(cifar100_x_train, cifar100_y_train, cifar100_x_test, cifar100_y_test)
-
-# Display shapes of CIFAR-10 training and testing data
-print(f"CIFAR-10 Training Data: X Shape - {cifar10_x_train.shape}, Y Shape - {cifar10_y_train.shape}")
-print(f"CIFAR-10 Testing Data: X Shape - {cifar10_x_test.shape}, Y Shape - {cifar10_y_test.shape}")
-
-# Display shapes of CIFAR-100 training and testing data
-print(f"CIFAR-100 Training Data: X Shape - {cifar100_x_train.shape}, Y Shape - {cifar100_y_train.shape}")
-print(f"CIFAR-100 Testing Data: X Shape - {cifar100_x_test.shape}, Y Shape - {cifar100_y_test.shape}")
-
-
-# Display shapes of filtered CIFAR-10 training and testing data
-print(f"\nFiltered CIFAR-10 Training Data: X Shape - {cifar10_x_train_filtered.shape}, Y Shape - {cifar10_y_train_filtered.shape}")
-print(f"Filtered CIFAR-10 Testing Data: X Shape - {cifar10_x_test_filtered.shape}, Y Shape - {cifar10_y_test_filtered.shape}")
-
-# Display shapes of filtered CIFAR-100 training and testing data
-print(f"Filtered CIFAR-100 Training Data: X Shape - {cifar100_x_train_filtered.shape}, Y Shape - {cifar100_y_train_filtered.shape}")
-print(f"Filtered CIFAR-100 Testing Data: X Shape - {cifar100_x_test_filtered.shape}, Y Shape - {cifar100_y_test_filtered.shape}")
-
-
 # Plotting CIFAR10 and CIFAR100 data
 def plot_cifar(x_train, y_train, num_of_img):
     fig, axes = plt.subplots(1, num_of_img, figsize=(10, 10))
@@ -60,11 +38,6 @@ def plot_cifar(x_train, y_train, num_of_img):
         axes[i].axis('off')
         axes[i].imshow(x_train[index])
     plt.show()
-
-# Plot images from CIFAR-10
-plot_cifar(cifar10_x_train, cifar10_y_train, 5)
-# Plot images from CIFAR-100
-plot_cifar(cifar100_x_train, cifar100_y_train, 5)
 
 # Plotting filtered CIFAR10 and CIFAR100 data
 def plot_filtered_cifar(x, y, class_labels, num_images):
@@ -92,7 +65,40 @@ def plot_filtered_cifar(x, y, class_labels, num_images):
             axes[i][j].set_title(f'Class: {class_label}' if j == 0 else '', size='large')
     plt.show()
 
+# Combine CIFAR-10 and CIFAR-100 data
+
+
+# Filter CIFAR10 and CIFAR100 data
+cifar10_x_train_filtered, cifar10_y_train_filtered, cifar10_x_test_filtered, cifar10_y_test_filtered = filter_cifar10(cifar10_x_train, cifar10_y_train, cifar10_x_test, cifar10_y_test)
+cifar100_x_train_filtered, cifar100_y_train_filtered, cifar100_x_test_filtered, cifar100_y_test_filtered = filter_cifar100(cifar100_x_train, cifar100_y_train, cifar100_x_test, cifar100_y_test)
+
+
+# Display shapes of CIFAR-10 training and testing data
+print(f"CIFAR-10 Training Data: X Shape - {cifar10_x_train.shape}, Y Shape - {cifar10_y_train.shape}")
+print(f"CIFAR-10 Testing Data: X Shape - {cifar10_x_test.shape}, Y Shape - {cifar10_y_test.shape}")
+
+# Display shapes of CIFAR-100 training and testing data
+print(f"CIFAR-100 Training Data: X Shape - {cifar100_x_train.shape}, Y Shape - {cifar100_y_train.shape}")
+print(f"CIFAR-100 Testing Data: X Shape - {cifar100_x_test.shape}, Y Shape - {cifar100_y_test.shape}")
+
+
+# Display shapes of filtered CIFAR-10 training and testing data
+print(f"\nFiltered CIFAR-10 Training Data: X Shape - {cifar10_x_train_filtered.shape}, Y Shape - {cifar10_y_train_filtered.shape}")
+print(f"Filtered CIFAR-10 Testing Data: X Shape - {cifar10_x_test_filtered.shape}, Y Shape - {cifar10_y_test_filtered.shape}")
+
+# Display shapes of filtered CIFAR-100 training and testing data
+print(f"Filtered CIFAR-100 Training Data: X Shape - {cifar100_x_train_filtered.shape}, Y Shape - {cifar100_y_train_filtered.shape}")
+print(f"Filtered CIFAR-100 Testing Data: X Shape - {cifar100_x_test_filtered.shape}, Y Shape - {cifar100_y_test_filtered.shape}")
+
+
+# Plot images from CIFAR-10
+plot_cifar(cifar10_x_train, cifar10_y_train, 5)
+# Plot images from CIFAR-100
+plot_cifar(cifar100_x_train, cifar100_y_train, 5)
+
 # Plot filtered images from CIFAR-10
 plot_filtered_cifar(cifar10_x_train_filtered, cifar10_y_train_filtered, cifar10_classes, 5)
 # Plot filtered images from CIFAR-100
 plot_filtered_cifar(cifar100_x_train_filtered, cifar100_y_train_filtered, cifar100_classes, 5)
+
+
