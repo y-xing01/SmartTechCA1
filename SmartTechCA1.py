@@ -66,7 +66,7 @@ plot_cifar(cifar10_x_train, cifar10_y_train, 5)
 # Plot images from CIFAR-100
 plot_cifar(cifar100_x_train, cifar100_y_train, 5)
 
-# Plotting filted CIFAR10 and CIFAR100 data
+# Plotting filtered CIFAR10 and CIFAR100 data
 def plot_filtered_cifar(x, y, class_labels, num_images):
     np.random.seed(0)
     # Get the number of classes
