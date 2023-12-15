@@ -108,3 +108,20 @@ plot_filtered_cifar(cifar10_x_train_filtered, cifar10_y_train_filtered, cifar10_
 plot_filtered_cifar(cifar100_x_train_filtered, cifar100_y_train_filtered, cifar100_classes, 5)
 
 
+# Combine CIFAR-10 and CIFAR-100 data using the combine_cifar function
+x_train, y_train, x_test, y_test = combine_cifar(
+    cifar10_x_train_filtered, cifar10_y_train_filtered,
+    cifar10_x_test_filtered, cifar10_y_test_filtered,
+    cifar100_x_train_filtered, cifar100_y_train_filtered,
+    cifar100_x_test_filtered, cifar100_y_test_filtered
+)
+
+# Get the unique classes in the combined dataset
+combined_classes = np.unique(np.concatenate((y_train, y_test)))
+
+# Display the shape of the combined dataset
+print("Combined Train Shape:", x_train.shape, y_train.shape)
+print("Combined Test Shape:", x_test.shape, y_test.shape)
+
+# Display the unique combined classes
+print("Combined Classes:", combined_classes)
