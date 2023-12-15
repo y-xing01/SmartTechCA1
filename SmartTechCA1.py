@@ -66,7 +66,13 @@ def plot_filtered_cifar(x, y, class_labels, num_images):
     plt.show()
 
 # Combine CIFAR-10 and CIFAR-100 data
-
+def combine_cifar(cifar10_x_train, cifar10_y_train, cifar10_x_test, cifar10_y_test, cifar100_x_train, cifar100_y_train, cifar100_x_test, cifar100_y_test):
+    x_train = np.concatenate((cifar10_x_train, cifar100_x_train), axis=0)
+    y_train = np.concatenate((cifar10_y_train, cifar100_y_train), axis=0)
+    x_test = np.concatenate((cifar10_x_test, cifar100_x_test), axis=0)
+    y_test = np.concatenate((cifar10_y_test, cifar100_y_test), axis=0)
+    
+    return x_train, y_train, x_test, y_test
 
 # Filter CIFAR10 and CIFAR100 data
 cifar10_x_train_filtered, cifar10_y_train_filtered, cifar10_x_test_filtered, cifar10_y_test_filtered = filter_cifar10(cifar10_x_train, cifar10_y_train, cifar10_x_test, cifar10_y_test)
