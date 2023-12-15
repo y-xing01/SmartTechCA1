@@ -38,18 +38,21 @@ print("Filtered CIFAR100 X Train Shape: ", cifar100_x_train_filtered.shape,  ", 
 print("Filtered CIFAR100 X Test Shape: ", cifar100_x_test_filtered.shape,  ", Y Test Shape: ", cifar100_y_test_filtered.shape)
 
 # Plotting CIFAR10 and CIFAR100 data
-def plot_cifar(x_train, y_train, num_of_img, num_of_class):
+def plot_cifar(x_train, y_train, num_of_img):
     fig, axes = plt.subplots(1, num_of_img, figsize=(10, 10))
     for i in range(num_of_img):
+        # Choose random images from the training set
         index = np.random.randint(0, x_train.shape[0])
-        axes[i].set_title("Num of Class: " + str(y_train[index][0]))
+        axes[i].set_title("Class: " + str(y_train[index][0]))
+        #Turn off the axis for better visualization
+        axes[i].axis('off')
         axes[i].imshow(x_train[index])
     plt.show()
 
 # Plot 5 images from CIFAR-10
-plot_cifar(cifar10_x_train, cifar10_y_train, 5, 10)
+print("CIFAR10: ")
+plot_cifar(cifar10_x_train, cifar10_y_train, 5)
 # Plot 5 images from CIFAR-100
-plot_cifar(cifar100_x_train, cifar100_y_train, 5, 10)
-
-
+print("\nCIFAR100: ")
+plot_cifar(cifar100_x_train, cifar100_y_train, 5)
 
