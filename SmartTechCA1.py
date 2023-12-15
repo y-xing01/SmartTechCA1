@@ -1,4 +1,5 @@
 import numpy as np
+import matplotlib.pyplot as plt
 from keras.datasets import cifar10, cifar100
 
 # Load CIFAR10 and CIFAR100 data
@@ -35,3 +36,20 @@ print("Filtered CIFAR10 X Train Shape: ", cifar10_x_train_filtered.shape, ", Y T
 print("Filtered CIFAR10 X Test Shape: ", cifar10_x_test_filtered.shape,  ", Y Test Shape: ", cifar10_y_test_filtered.shape)
 print("Filtered CIFAR100 X Train Shape: ", cifar100_x_train_filtered.shape,  ", Y Train Shape: ", cifar100_y_train_filtered.shape)
 print("Filtered CIFAR100 X Test Shape: ", cifar100_x_test_filtered.shape,  ", Y Test Shape: ", cifar100_y_test_filtered.shape)
+
+# Plotting CIFAR10 and CIFAR100 data
+def plot_cifar(x_train, y_train, num_of_img, num_of_class):
+    fig, axes = plt.subplots(1, num_of_img, figsize=(10, 10))
+    for i in range(num_of_img):
+        index = np.random.randint(0, x_train.shape[0])
+        axes[i].set_title("Num of Class: " + str(y_train[index][0]))
+        axes[i].imshow(x_train[index])
+    plt.show()
+
+# Plot 5 images from CIFAR-10
+plot_cifar(cifar10_x_train, cifar10_y_train, 5, 10)
+# Plot 5 images from CIFAR-100
+plot_cifar(cifar100_x_train, cifar100_y_train, 5, 10)
+
+
+
