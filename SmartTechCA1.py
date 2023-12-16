@@ -164,3 +164,6 @@ print("Combined Test Shape:", x_test.shape, y_test.shape)
 
 # Display the unique combined classes
 print("Combined Classes:", combined_classes)
+
+# Display images from combined dataset
+combined_cifar = display_combined_cifar(x_train, y_train, combined_classes, 5)
