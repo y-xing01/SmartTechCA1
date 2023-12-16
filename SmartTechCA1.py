@@ -137,6 +137,10 @@ def gaussian_filter(img):
     
     return img
 
+# Scale down
+def scale_down_variance(img):
+    return img / 255
+
 # Apply all filters
 def preprocess(img):
     # Apply grayscale filter
@@ -147,7 +151,7 @@ def preprocess(img):
     img = gaussian_filter(img)
     # Normalize pixel values to the range [0, 1]
     # Helps in stabilizing the learning process and can lead to faster convergence during training
-    img = img / 255
+    img = scale_down_variance(img)
     
     return img
 
@@ -237,9 +241,9 @@ combined_cifar = display_combined_cifar(x_train, y_train, combined_classes, 5)
 
 # Plot the combined classes (Data Exploration)
 print("\nClasses:", combined_cifar)
-num_of_class = len(combined_cifar)
+num_of_data = len(combined_cifar)
 plt.figure(figsize=(10, 10))
-plt.bar(range(num_of_class), combined_cifar)
+plt.bar(range(num_of_data), combined_cifar)
 plt.title("Distribution of Images Across Combined Classes")
 plt.xlabel("Classes")
 plt.ylabel("Number of Data")
@@ -309,9 +313,10 @@ plt.axis("off")
 x_train = reshape(x_train_preprocessed)
 x_test = reshape(x_test_preprocessed)
 
-print(x_train.shape)
-print(x_test.shape)
+print("\nX Train shape: ", x_train.shape)
+print("X Test shape: ", x_test.shape)
+
 
 # One hot encoding
-y_train = to_categorical(y_train, num_of_class)
-y_test = to_categorical(y_test, num_of_class)
+y_train = to_categorical(y_train, num_of_data)
+y_test = to_categorical(y_test, num_of_data)
