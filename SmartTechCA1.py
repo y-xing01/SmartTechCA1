@@ -122,6 +122,13 @@ def grayscale_filter(img):
     
     return img
 
+# Apply Equalization filter
+def equalization_filter(img):
+    # Apply histogram equalization
+    img = cv2.equalizeHist(img)
+    
+    return img
+
 # Filter CIFAR10 and CIFAR100 data
 cifar10_x_train_filtered, cifar10_y_train_filtered, cifar10_x_test_filtered, cifar10_y_test_filtered = filter_cifar10(cifar10_x_train, cifar10_y_train, cifar10_x_test, cifar10_y_test)
 cifar100_x_train_filtered, cifar100_y_train_filtered, cifar100_x_test_filtered, cifar100_y_test_filtered = filter_cifar100(cifar100_x_train, cifar100_y_train, cifar100_x_test, cifar100_y_test)
@@ -197,3 +204,4 @@ plt.imshow(img_gray, cmap='gray')
 plt.title("Grayscale Image")
 plt.axis("off")
 plt.show()
+
