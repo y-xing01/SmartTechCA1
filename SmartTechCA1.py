@@ -1,5 +1,7 @@
 import numpy as np
+import random
 import matplotlib.pyplot as plt
+import cv2
 from keras.datasets import cifar10, cifar100
 
 # Load CIFAR10 and CIFAR100 data
@@ -112,6 +114,13 @@ def display_combined_cifar(x, y, class_labels, num_of_img):
 
     # Return the number of data points in each class
     return num_of_data
+
+# Apply grayscale filter
+def grayscale_filter(img):
+    # Convert RGB to grayscale
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    
+    return img
 
 # Filter CIFAR10 and CIFAR100 data
 cifar10_x_train_filtered, cifar10_y_train_filtered, cifar10_x_test_filtered, cifar10_y_test_filtered = filter_cifar10(cifar10_x_train, cifar10_y_train, cifar10_x_test, cifar10_y_test)
