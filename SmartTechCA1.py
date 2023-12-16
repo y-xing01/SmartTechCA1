@@ -312,5 +312,6 @@ x_test = reshape(x_test_preprocessed)
 print(x_train.shape)
 print(x_test.shape)
 
-# One-hot encoding
+# One hot encoding
 y_train = to_categorical(y_train, num_of_class)
+y_test = to_categorical(y_test, num_of_class)
