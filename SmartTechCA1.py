@@ -210,3 +210,15 @@ plt.title("Grayscale Image with Colormap")
 plt.axis("off")
 plt.show()
 
+# Plot equalized image
+img_gray_eq = equalization_filter(img_gray)
+plt.imshow(img_gray_eq)
+plt.title("Equalized Image")
+plt.axis("off")
+plt.show()
+
+# Displays the image in shades of gray
+plt.imshow(img_gray_eq, cmap='gray')
+plt.title("Equalized Image with Colormap")
+plt.axis("off")
+plt.show()
