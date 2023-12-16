@@ -245,10 +245,22 @@ plt.title("Equalized Image with Colormap")
 plt.axis("off")
 plt.show()
 
-# Plot Gaussian image
+# Plot gaussian image
 img_gaussian = gaussian_filter(img)
 plt.imshow(img_gaussian)
 plt.title("Gaussian Image")
 plt.axis("off")
 plt.show()
 
+# Plot preprocessed image
+img_preprocessed = preprocess(img)
+plt.imshow(img_preprocessed)
+plt.title("Preprocessed Image")
+plt.axis("off")
+plt.show()
+
+# Displays the image in shades of gray
+plt.imshow(img_preprocessed, cmap='gray')
+plt.title("Preprocessed Image with Colormap")
+plt.axis("off")
+plt.show()
