@@ -279,3 +279,11 @@ random_index = np.random.choice(len(x_train))
 plt.imshow(x_train[random_index])
 plt.title("Preprocessed Image x_train")
 plt.axis("off")
+
+
+# Reshape data 
+x_train = reshape(x_train_preprocessed)
+x_test = reshape(x_test_preprocessed)
+
+print(x_train.shape)
+print(x_test.shape)
