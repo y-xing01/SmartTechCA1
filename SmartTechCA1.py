@@ -12,7 +12,7 @@ from keras.datasets import cifar10, cifar100
 cifar10_classes = [1, 2, 3, 4, 5, 7, 9]
 cifar100_classes = [2, 8, 11, 13, 19, 34, 35, 41, 46, 47, 48, 52, 56, 58, 59, 65, 80, 89, 90, 96, 98]
 
-#Function for filtering CIFAR10 and CIFA100 data
+# Function for filtering CIFAR10 and CIFA100 data
 def filter_cifar10(cifar10_x_train, cifar10_y_train, cifar10_x_test, cifar10_y_test):
     cifar10_x_train_filtered = cifar10_x_train[np.isin(cifar10_y_train, cifar10_classes).flatten()]
     cifar10_y_train_filtered = cifar10_y_train[np.isin(cifar10_y_train, cifar10_classes).flatten()]
@@ -29,7 +29,7 @@ def filter_cifar100(cifar100_x_train, cifar100_y_train, cifar100_x_test, cifar10
     
     return cifar100_x_train_filtered, cifar100_y_train_filtered, cifar100_x_test_filtered, cifar100_y_test_filtered
 
-# Plotting CIFAR10 and CIFAR100 data
+# Plotting CIFAR10 and CIFAR100 data (Data Exploration)
 def plot_cifar(x_train, y_train, num_of_img):
     fig, axes = plt.subplots(1, num_of_img, figsize=(10, 10))
     for i in range(num_of_img):
@@ -160,7 +160,7 @@ cifar10_x_train_filtered, cifar10_y_train_filtered, cifar10_x_test_filtered, cif
 cifar100_x_train_filtered, cifar100_y_train_filtered, cifar100_x_test_filtered, cifar100_y_test_filtered = filter_cifar100(cifar100_x_train, cifar100_y_train, cifar100_x_test, cifar100_y_test)
 
 
-# Display shapes of CIFAR10 training and testing data
+# Display shapes of CIFAR10 training and testing data (Data Exploration)
 print(f"CIFAR-10 Training Data: X Shape - {cifar10_x_train.shape}, Y Shape - {cifar10_y_train.shape}")
 print(f"CIFAR-10 Testing Data: X Shape - {cifar10_x_test.shape}, Y Shape - {cifar10_y_test.shape}")
 
@@ -169,7 +169,7 @@ print(f"CIFAR-100 Training Data: X Shape - {cifar100_x_train.shape}, Y Shape - {
 print(f"CIFAR-100 Testing Data: X Shape - {cifar100_x_test.shape}, Y Shape - {cifar100_y_test.shape}")
 
 
-# Display shapes of filtered CIFAR10 training and testing data
+# Display shapes of filtered CIFAR10 training and testing data (Data Exploration)
 print(f"\nFiltered CIFAR-10 Training Data: X Shape - {cifar10_x_train_filtered.shape}, Y Shape - {cifar10_y_train_filtered.shape}")
 print(f"Filtered CIFAR-10 Testing Data: X Shape - {cifar10_x_test_filtered.shape}, Y Shape - {cifar10_y_test_filtered.shape}")
 
@@ -197,7 +197,7 @@ x_train, y_train, x_test, y_test = combine_cifar(
     cifar100_x_test_filtered, cifar100_y_test_filtered
 )
 
-# Get the unique classes in the combined dataset
+# Get the unique classes in the combined dataset (Data Exploration)
 combined_classes = np.unique(np.concatenate((y_train, y_test)))
 
 # Display the shape of the combined dataset
