@@ -3,6 +3,7 @@ import random
 import matplotlib.pyplot as plt
 import cv2
 from keras.datasets import cifar10, cifar100
+from keras.utils import to_categorical
 
 # Load CIFAR10 and CIFAR100 data
 (cifar10_x_train, cifar10_y_train), (cifar10_x_test, cifar10_y_test) = cifar10.load_data()
@@ -102,9 +103,9 @@ def display_combined_cifar(x, y, class_labels, num_of_img):
             # Display the image on the subplot
             axes[j, k].imshow(x[index], interpolation='nearest')
             axes[j, k].axis('off')
+            num_of_data.append(len(indices))
 
         # Store the number of data points in each class
-        num_of_data.append(len(indices))
 
         # Set the title for the last column of subplots
         axes[j, -1].set_title(f'Class: {class_label}', size='large')
@@ -184,7 +185,7 @@ cifar100_x_train_filtered, cifar100_y_train_filtered, cifar100_x_test_filtered, 
 
 
 # Display shapes of CIFAR10 training and testing data (Data Exploration)
-print(f"CIFAR-10 Training Data: X Shape - {cifar10_x_train.shape}, Y Shape - {cifar10_y_train.shape}")
+print(f"\nCIFAR-10 Training Data: X Shape - {cifar10_x_train.shape}, Y Shape - {cifar10_y_train.shape}")
 print(f"CIFAR-10 Testing Data: X Shape - {cifar10_x_test.shape}, Y Shape - {cifar10_y_test.shape}")
 
 # Display shapes of CIFAR100 training and testing data
@@ -224,7 +225,7 @@ x_train, y_train, x_test, y_test = combine_cifar(
 combined_classes = np.unique(np.concatenate((y_train, y_test)))
 
 # Display the shape of the combined dataset
-print("Combined Train Shape:", x_train.shape, y_train.shape)
+print("\nCombined Train Shape:", x_train.shape, y_train.shape)
 print("Combined Test Shape:", x_test.shape, y_test.shape)
 
 # Display the unique combined classes
@@ -235,7 +236,7 @@ combined_cifar = display_combined_cifar(x_train, y_train, combined_classes, 5)
 
 
 # Plot the combined classes (Data Exploration)
-print("Classes:", combined_cifar)
+print("\nClasses:", combined_cifar)
 num_of_class = len(combined_cifar)
 plt.figure(figsize=(10, 10))
 plt.bar(range(num_of_class), combined_cifar)
@@ -310,3 +311,6 @@ x_test = reshape(x_test_preprocessed)
 
 print(x_train.shape)
 print(x_test.shape)
+
+# One-hot encoding
+y_train = to_categorical(y_train, num_of_class)
