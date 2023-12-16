@@ -149,6 +149,10 @@ def preprocess(img):
     img = img / 255
     
     return img
+
+# Reshape data
+def reshape(images):
+    return images.reshape(images.shape[0], 32, 32, 1)
     
 
 # Filter CIFAR10 and CIFAR100 data
