@@ -188,8 +188,8 @@ combined_cifar = display_combined_cifar(x_train, y_train, combined_classes, 5)
 # Plot the combined classes
 print("Classes:", combined_cifar)
 num_of_class = len(combined_cifar)
-plt.bar(range(num_of_class), combined_cifar)
 plt.figure(figsize=(10, 10))
+plt.bar(range(num_of_class), combined_cifar)
 plt.title("Distribution of Images Across Combined Classes")
 plt.xlabel("Classes")
 plt.ylabel("Number of Data")
@@ -199,9 +199,14 @@ plt.show()
 # Plot grayscale image
 img = x_train[0]
 img_gray = grayscale_filter(img)
+plt.imshow(img_gray)
+plt.title("Grayscale Image")
+plt.axis("off")
+plt.show()
+
 # Displays the image in shades of gray
 plt.imshow(img_gray, cmap='gray')
-plt.title("Grayscale Image")
+plt.title("Grayscale Image with Colormap")
 plt.axis("off")
 plt.show()
 
