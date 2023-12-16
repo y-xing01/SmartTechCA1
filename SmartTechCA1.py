@@ -218,49 +218,60 @@ plt.ylabel("Number of Data")
 plt.show()
 
 
-# Plot grayscale image
-img = x_train[0]
-img_gray = grayscale_filter(img)
-plt.imshow(img_gray)
-plt.title("Grayscale Image")
-plt.axis("off")
-plt.show()
+# # Plot grayscale image
+# img = x_train[0]
+# img_gray = grayscale_filter(img)
+# plt.imshow(img_gray)
+# plt.title("Grayscale Image")
+# plt.axis("off")
+# plt.show()
 
-# Displays the image in shades of gray
-plt.imshow(img_gray, cmap='gray')
-plt.title("Grayscale Image with Colormap")
-plt.axis("off")
-plt.show()
+# # Displays the image in shades of gray
+# plt.imshow(img_gray, cmap='gray')
+# plt.title("Grayscale Image with Colormap")
+# plt.axis("off")
+# plt.show()
 
-# Plot equalized image
-img_gray_eq = equalization_filter(img_gray)
-plt.imshow(img_gray_eq)
-plt.title("Equalized Image")
-plt.axis("off")
-plt.show()
+# # Plot equalized image
+# img_gray_eq = equalization_filter(img_gray)
+# plt.imshow(img_gray_eq)
+# plt.title("Equalized Image")
+# plt.axis("off")
+# plt.show()
 
-# Displays the image in shades of gray
-plt.imshow(img_gray_eq, cmap='gray')
-plt.title("Equalized Image with Colormap")
-plt.axis("off")
-plt.show()
+# # Displays the image in shades of gray
+# plt.imshow(img_gray_eq, cmap='gray')
+# plt.title("Equalized Image with Colormap")
+# plt.axis("off")
+# plt.show()
 
-# Plot gaussian image
-img_gaussian = gaussian_filter(img)
-plt.imshow(img_gaussian)
-plt.title("Gaussian Image")
-plt.axis("off")
-plt.show()
+# # Plot gaussian image
+# img_gaussian = gaussian_filter(img)
+# plt.imshow(img_gaussian)
+# plt.title("Gaussian Image")
+# plt.axis("off")
+# plt.show()
+
+# # Plot preprocessed image
+# img_preprocessed = preprocess(img)
+# plt.imshow(img_preprocessed)
+# plt.title("Preprocessed Image")
+# plt.axis("off")
+# plt.show()
+
+# # Displays the image in shades of gray
+# plt.imshow(img_preprocessed, cmap='gray')
+# plt.title("Preprocessed Image with Colormap")
+# plt.axis("off")
+# plt.show()
 
 # Plot preprocessed image
-img_preprocessed = preprocess(img)
-plt.imshow(img_preprocessed)
-plt.title("Preprocessed Image")
-plt.axis("off")
-plt.show()
+x_train_preprocessed = np.array(list(map(preprocess, x_train)))
+x_test_preprocessed = np.array(list(map(preprocess, x_test)))
 
-# Displays the image in shades of gray
-plt.imshow(img_preprocessed, cmap='gray')
-plt.title("Preprocessed Image with Colormap")
+# Randomly select an image from the training set
+random_index = np.random.choice(len(x_train))
+# Display the preprocessed image
+plt.imshow(x_train[random_index])
+plt.title("Preprocessed Image x_train")
 plt.axis("off")
-plt.show()
