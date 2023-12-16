@@ -211,7 +211,7 @@ print("Combined Classes:", combined_classes)
 combined_cifar = display_combined_cifar(x_train, y_train, combined_classes, 5)
 
 
-# Plot the combined classes
+# Plot the combined classes (Data Exploration)
 print("Classes:", combined_cifar)
 num_of_class = len(combined_cifar)
 plt.figure(figsize=(10, 10))
