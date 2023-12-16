@@ -246,14 +246,9 @@ plt.axis("off")
 plt.show()
 
 # Plot Gaussian image
-img_gray_gaussian = gaussian_filter(img_gray_eq)
-plt.imshow(img_gray_gaussian)
+img_gaussian = gaussian_filter(img)
+plt.imshow(img_gaussian)
 plt.title("Gaussian Image")
 plt.axis("off")
 plt.show()
 
-# Displays the image in shades of gray
-plt.imshow(img_gray_gaussian, cmap='gray')
-plt.title("Gaussian Image with Colormap")
-plt.axis("off")
-plt.show()
