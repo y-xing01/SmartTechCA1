@@ -154,6 +154,22 @@ def preprocess(img):
 def reshape(images):
     return images.reshape(images.shape[0], 32, 32, 1)
     
+    
+# Display the size of the first image in CIFAR-10
+print("CIFAR-10 Image Size:", cifar10_x_train[0].shape)
+
+# Display the size of the first image in CIFAR-100
+print("CIFAR-100 Image Size:", cifar100_x_train[0].shape)
+
+
+# Count the number of labels for each image in CIFAR-10
+cifar10_label_counts = np.sum(cifar10_y_train, axis=1)
+print("CIFAR-10 Label Counts:", cifar10_label_counts)
+
+# Count the number of labels for each image in CIFAR-100
+cifar100_label_counts = np.sum(cifar100_y_train, axis=1)
+print("CIFAR-100 Label Counts:", cifar100_label_counts)
+
 
 # Filter CIFAR10 and CIFAR100 data
 cifar10_x_train_filtered, cifar10_y_train_filtered, cifar10_x_test_filtered, cifar10_y_test_filtered = filter_cifar10(cifar10_x_train, cifar10_y_train, cifar10_x_test, cifar10_y_test)
