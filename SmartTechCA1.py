@@ -167,3 +167,14 @@ print("Combined Classes:", combined_classes)
 
 # Display images from combined dataset
 combined_cifar = display_combined_cifar(x_train, y_train, combined_classes, 5)
+
+# Plot the combined classes
+print("Classes:", combined_cifar)
+num_of_class = len(combined_cifar)
+plt.bar(range(num_of_class), combined_cifar)
+plt.figure(figsize=(10, 10))
+plt.title("Distribution of Images Across Combined Classes")
+plt.xlabel("Classes")
+plt.ylabel("Number of Data")
+plt.show()
+
