@@ -6,11 +6,11 @@ from keras.datasets import cifar10, cifar100
 (cifar10_x_train, cifar10_y_train), (cifar10_x_test, cifar10_y_test) = cifar10.load_data()
 (cifar100_x_train, cifar100_y_train), (cifar100_x_test, cifar100_y_test) = cifar100.load_data()
 
-# Select required data from CIFAR10 and CIFAR100
+# Select required data from CIFAR-10 and CIFAR-100
 cifar10_classes = [1, 2, 3, 4, 5, 7, 9]
 cifar100_classes = [2, 8, 11, 13, 19, 34, 35, 41, 46, 47, 48, 52, 56, 58, 59, 65, 80, 89, 90, 96, 98]
 
-#Function for filtering CIFAR10 and CIFAR100 data
+#Function for filtering CIFAR-10 and CIFAR-100 data
 def filter_cifar10(cifar10_x_train, cifar10_y_train, cifar10_x_test, cifar10_y_test):
     cifar10_x_train_filtered = cifar10_x_train[np.isin(cifar10_y_train, cifar10_classes).flatten()]
     cifar10_y_train_filtered = cifar10_y_train[np.isin(cifar10_y_train, cifar10_classes).flatten()]
@@ -27,7 +27,7 @@ def filter_cifar100(cifar100_x_train, cifar100_y_train, cifar100_x_test, cifar10
     
     return cifar100_x_train_filtered, cifar100_y_train_filtered, cifar100_x_test_filtered, cifar100_y_test_filtered
 
-# Plotting CIFAR10 and CIFAR100 data
+# Plotting CIFAR-10 and CIFAR-100 data
 def plot_cifar(x_train, y_train, num_of_img):
     fig, axes = plt.subplots(1, num_of_img, figsize=(10, 10))
     for i in range(num_of_img):
@@ -39,13 +39,13 @@ def plot_cifar(x_train, y_train, num_of_img):
         axes[i].imshow(x_train[index])
     plt.show()
 
-# Plotting filtered CIFAR10 and CIFAR100 data
-def plot_filtered_cifar(x, y, class_labels, num_images):
+# Plotting filtered CIFAR-10 and CIFAR-100 data
+def plot_filtered_cifar(x, y, class_labels, num_of_img):
     np.random.seed(0)
     # Get the number of classes
-    num_classes = len(class_labels)
+    num_of_class = len(class_labels)
     # Create a subplot with a grid of size (num_classes, num_images)
-    fig, axes = plt.subplots(num_classes, num_images, figsize=(2 * num_images, 2 * num_classes))
+    fig, axes = plt.subplots(num_of_class, num_of_img, figsize=(2 * num_of_img, 2 * num_of_class))
     # Adjust the layout for better spacing
     plt.tight_layout(pad=3.0, h_pad=1.0, w_pad=0.5)
     
@@ -54,7 +54,7 @@ def plot_filtered_cifar(x, y, class_labels, num_images):
         # Find indices where the label matches the current class
         indices = np.where(y == class_label)[0]
         # Choose random images for each class
-        random_indices = np.random.choice(indices, num_images, replace=False)
+        random_indices = np.random.choice(indices, num_of_img, replace=False)
         
         # Loop through each image in the current class
         for j, idx in enumerate(random_indices):
@@ -73,6 +73,45 @@ def combine_cifar(cifar10_x_train, cifar10_y_train, cifar10_x_test, cifar10_y_te
     y_test = np.concatenate((cifar10_y_test, cifar100_y_test), axis=0)
     
     return x_train, y_train, x_test, y_test
+
+# Display combined CIFAR-10 and CIFAR-100 data
+def display_combined_cifar(x, y, class_labels, num_of_img):
+    num_of_class = len(class_labels)
+    num_of_data = []
+
+    # Ensure axes is always a 2D array, even for a single class
+    fig, axes = plt.subplots(num_of_class, num_of_img, figsize=(2 * num_of_img, 2 * num_of_class))
+    plt.tight_layout(pad=3.0, h_pad=1.0, w_pad=0.5)
+
+    # If there's only one class, convert axes to a 2D array
+    if num_of_class == 1:
+        axes = np.array([axes])
+
+    # Loop through each class
+    for j, class_label in enumerate(class_labels):
+        # Find indices where the label matches the current class
+        indices = np.where(y.flatten() == class_label)[0]
+
+        # Randomly select num_images indices without replacement
+        selected_indices = np.random.choice(indices, num_of_img, replace=False)
+
+        # Loop through each image in the current class
+        for k, index in enumerate(selected_indices):
+            # Display the image on the subplot
+            axes[j, k].imshow(x[index], interpolation='nearest')
+            axes[j, k].axis('off')
+
+        # Store the number of data points in each class
+        num_of_data.append(len(indices))
+
+        # Set the title for the last column of subplots
+        axes[j, -1].set_title(f'Class: {class_label}', size='large')
+
+    # Adjust the spacing of the subplots
+    plt.show()
+
+    # Return the number of data points in each class
+    return num_of_data
 
 # Filter CIFAR10 and CIFAR100 data
 cifar10_x_train_filtered, cifar10_y_train_filtered, cifar10_x_test_filtered, cifar10_y_test_filtered = filter_cifar10(cifar10_x_train, cifar10_y_train, cifar10_x_test, cifar10_y_test)
