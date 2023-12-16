@@ -136,6 +136,21 @@ def gaussian_filter(img):
     
     return img
 
+# Apply all filters
+def preprocess(img):
+    # Apply grayscale filter
+    img = grayscale_filter(img)
+    # Apply equalization filter
+    img = equalization_filter(img)
+    # Apply Gaussian filter
+    img = gaussian_filter(img)
+    # Normalize pixel values to the range [0, 1]
+    # Helps in stabilizing the learning process and can lead to faster convergence during training
+    img = img / 255
+    
+    return img
+    
+
 # Filter CIFAR10 and CIFAR100 data
 cifar10_x_train_filtered, cifar10_y_train_filtered, cifar10_x_test_filtered, cifar10_y_test_filtered = filter_cifar10(cifar10_x_train, cifar10_y_train, cifar10_x_test, cifar10_y_test)
 cifar100_x_train_filtered, cifar100_y_train_filtered, cifar100_x_test_filtered, cifar100_y_test_filtered = filter_cifar100(cifar100_x_train, cifar100_y_train, cifar100_x_test, cifar100_y_test)
