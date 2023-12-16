@@ -6,11 +6,11 @@ from keras.datasets import cifar10, cifar100
 (cifar10_x_train, cifar10_y_train), (cifar10_x_test, cifar10_y_test) = cifar10.load_data()
 (cifar100_x_train, cifar100_y_train), (cifar100_x_test, cifar100_y_test) = cifar100.load_data()
 
-# Select required data from CIFAR-10 and CIFAR-100
+# Select required data from CIFAR10 and CIFAR100
 cifar10_classes = [1, 2, 3, 4, 5, 7, 9]
 cifar100_classes = [2, 8, 11, 13, 19, 34, 35, 41, 46, 47, 48, 52, 56, 58, 59, 65, 80, 89, 90, 96, 98]
 
-#Function for filtering CIFAR-10 and CIFAR-100 data
+#Function for filtering CIFAR10 and CIFA100 data
 def filter_cifar10(cifar10_x_train, cifar10_y_train, cifar10_x_test, cifar10_y_test):
     cifar10_x_train_filtered = cifar10_x_train[np.isin(cifar10_y_train, cifar10_classes).flatten()]
     cifar10_y_train_filtered = cifar10_y_train[np.isin(cifar10_y_train, cifar10_classes).flatten()]
@@ -27,7 +27,7 @@ def filter_cifar100(cifar100_x_train, cifar100_y_train, cifar100_x_test, cifar10
     
     return cifar100_x_train_filtered, cifar100_y_train_filtered, cifar100_x_test_filtered, cifar100_y_test_filtered
 
-# Plotting CIFAR-10 and CIFAR-100 data
+# Plotting CIFAR10 and CIFAR100 data
 def plot_cifar(x_train, y_train, num_of_img):
     fig, axes = plt.subplots(1, num_of_img, figsize=(10, 10))
     for i in range(num_of_img):
@@ -39,7 +39,7 @@ def plot_cifar(x_train, y_train, num_of_img):
         axes[i].imshow(x_train[index])
     plt.show()
 
-# Plotting filtered CIFAR-10 and CIFAR-100 data
+# Plotting filtered CIFAR10 and CIFAR100 data
 def plot_filtered_cifar(x, y, class_labels, num_of_img):
     np.random.seed(0)
     # Get the number of classes
@@ -65,7 +65,7 @@ def plot_filtered_cifar(x, y, class_labels, num_of_img):
             axes[i][j].set_title(f'Class: {class_label}' if j == 0 else '', size='large')
     plt.show()
 
-# Combine CIFAR-10 and CIFAR-100 data
+# Combine CIFAR-10 and CIFAR100 data
 def combine_cifar(cifar10_x_train, cifar10_y_train, cifar10_x_test, cifar10_y_test, cifar100_x_train, cifar100_y_train, cifar100_x_test, cifar100_y_test):
     x_train = np.concatenate((cifar10_x_train, cifar100_x_train), axis=0)
     y_train = np.concatenate((cifar10_y_train, cifar100_y_train), axis=0)
@@ -74,7 +74,7 @@ def combine_cifar(cifar10_x_train, cifar10_y_train, cifar10_x_test, cifar10_y_te
     
     return x_train, y_train, x_test, y_test
 
-# Display combined CIFAR-10 and CIFAR-100 data
+# Display combined CIFAR10 and CIFAR100 data
 def display_combined_cifar(x, y, class_labels, num_of_img):
     num_of_class = len(class_labels)
     num_of_data = []
@@ -118,36 +118,36 @@ cifar10_x_train_filtered, cifar10_y_train_filtered, cifar10_x_test_filtered, cif
 cifar100_x_train_filtered, cifar100_y_train_filtered, cifar100_x_test_filtered, cifar100_y_test_filtered = filter_cifar100(cifar100_x_train, cifar100_y_train, cifar100_x_test, cifar100_y_test)
 
 
-# Display shapes of CIFAR-10 training and testing data
+# Display shapes of CIFAR10 training and testing data
 print(f"CIFAR-10 Training Data: X Shape - {cifar10_x_train.shape}, Y Shape - {cifar10_y_train.shape}")
 print(f"CIFAR-10 Testing Data: X Shape - {cifar10_x_test.shape}, Y Shape - {cifar10_y_test.shape}")
 
-# Display shapes of CIFAR-100 training and testing data
+# Display shapes of CIFAR100 training and testing data
 print(f"CIFAR-100 Training Data: X Shape - {cifar100_x_train.shape}, Y Shape - {cifar100_y_train.shape}")
 print(f"CIFAR-100 Testing Data: X Shape - {cifar100_x_test.shape}, Y Shape - {cifar100_y_test.shape}")
 
 
-# Display shapes of filtered CIFAR-10 training and testing data
+# Display shapes of filtered CIFAR10 training and testing data
 print(f"\nFiltered CIFAR-10 Training Data: X Shape - {cifar10_x_train_filtered.shape}, Y Shape - {cifar10_y_train_filtered.shape}")
 print(f"Filtered CIFAR-10 Testing Data: X Shape - {cifar10_x_test_filtered.shape}, Y Shape - {cifar10_y_test_filtered.shape}")
 
-# Display shapes of filtered CIFAR-100 training and testing data
+# Display shapes of filtered CIFAR100 training and testing data
 print(f"Filtered CIFAR-100 Training Data: X Shape - {cifar100_x_train_filtered.shape}, Y Shape - {cifar100_y_train_filtered.shape}")
 print(f"Filtered CIFAR-100 Testing Data: X Shape - {cifar100_x_test_filtered.shape}, Y Shape - {cifar100_y_test_filtered.shape}")
 
 
-# Plot images from CIFAR-10
+# Plot images from CIFAR10
 plot_cifar(cifar10_x_train, cifar10_y_train, 5)
-# Plot images from CIFAR-100
+# Plot images from CIFAR100
 plot_cifar(cifar100_x_train, cifar100_y_train, 5)
 
-# Plot filtered images from CIFAR-10
+# Plot filtered images from CIFAR10
 plot_filtered_cifar(cifar10_x_train_filtered, cifar10_y_train_filtered, cifar10_classes, 5)
-# Plot filtered images from CIFAR-100
+# Plot filtered images from CIFAR100
 plot_filtered_cifar(cifar100_x_train_filtered, cifar100_y_train_filtered, cifar100_classes, 5)
 
 
-# Combine CIFAR-10 and CIFAR-100 data using the combine_cifar function
+# Combine CIFAR10 and CIFAR100 data using the combine_cifar function
 x_train, y_train, x_test, y_test = combine_cifar(
     cifar10_x_train_filtered, cifar10_y_train_filtered,
     cifar10_x_test_filtered, cifar10_y_test_filtered,
