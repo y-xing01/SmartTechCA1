@@ -189,6 +189,27 @@ def leNet_model():
   model.compile(Adam(learning_rate=0.001), loss='categorical_crossentropy', metrics=['accuracy'])
   return model
 
+# Build modified model
+def modified_model():
+  model = Sequential()
+  model.add(Conv2D(60, (5, 5), input_shape=(32, 32, 1), activation='relu'))
+  model.add(Conv2D(60, (5, 5), input_shape=(32, 32, 1), activation='relu'))
+  model.add(Conv2D(60, (5, 5), input_shape=(32, 32, 1), activation='relu'))
+  model.add(MaxPooling2D(pool_size=(2, 2)))
+  # Increasing the depth and adding more layers
+  model.add(Conv2D(30, (3, 3), activation='relu'))
+  model.add(Conv2D(30, (3, 3), activation='relu'))
+  model.add(Conv2D(30, (3, 3), activation='relu'))
+  model.add(MaxPooling2D(pool_size=(2, 2)))
+  # Global Average Pooling
+  GlobalAveragePooling2D(),  
+  model.add(Flatten())
+  model.add(Dense(500, activation='relu'))
+  model.add(Dropout(0.5))
+  model.add(Dense(num_of_class, activation='softmax'))
+  model.compile(Adam(learning_rate=0.001), loss='categorical_crossentropy', metrics=['accuracy'])
+  return model
+
 def evaluate_model(model, x_test, y_test):
     # Evaluate the model on the test set
     score = model.evaluate(x_test, y_test, verbose=0)
@@ -388,12 +409,22 @@ for i in range(20):
 y_train = to_categorical(y_train, num_of_data)
 y_test = to_categorical(y_test, num_of_data)
 
-# Create the LeNet model with the default parameters
+# Create the LeNet model 
 model = leNet_model()
 print(model.summary())
 
 # Train the model
 history = model.fit(datagen.flow(x_train, y_train, batch_size=50), epochs=20 , validation_data=(x_test, y_test))
+
+
+# Create the modified model 
+model = modified_model()
+print(model.summary())
+
+
+# Train the model
+history = model.fit(datagen.flow(x_train, y_train, batch_size=50), steps_per_epoch=x_train.shape[0]/50, epochs=20, validation_data=(x_test, y_test), verbose=1, shuffle=1)
+
 
 # Evaluate the model on the test set
 evaluate_model(model, x_test, y_test)
