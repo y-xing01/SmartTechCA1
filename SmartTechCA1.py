@@ -188,6 +188,11 @@ def leNet_model():
   model.compile(Adam(learning_rate=0.001), loss='categorical_crossentropy', metrics=['accuracy'])
   return model
 
+def evaluate_model(model, x_test, y_test):
+    # Evaluate the model on the test set
+    score = model.evaluate(x_test, y_test, verbose=0)
+    print("Test Score:", score[0])
+    print("Test Accuracy:", score[1])
 
 # Display the size of the first image in CIFAR-10
 print("CIFAR-10 Image Size:", cifar10_x_train[0].shape)
@@ -353,3 +358,10 @@ y_test = to_categorical(y_test, num_of_data)
 # Create the LeNet model with the default parameters
 model = leNet_model()
 print(model.summary())
+
+# # Train the model for 10 epochs
+# history = model.fit(x_train, y_train, epochs=10, validation_split=0.1, batch_size=400, verbose=1, shuffle=1)
+
+# Evaluate the model on the test set
+evaluate_model(model, x_test, y_test)
+
