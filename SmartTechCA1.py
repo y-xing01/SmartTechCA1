@@ -194,6 +194,27 @@ def evaluate_model(model, x_test, y_test):
     print("Test Score:", score[0])
     print("Test Accuracy:", score[1])
 
+def analyze_model(history):
+    # Plot the training accuracy and validation accuracy
+    plt.plot(history.history['accuracy'])
+    plt.plot(history.history['val_accuracy'])
+    plt.title('Model Accuracy')
+    plt.xlabel('Epoch')
+    plt.ylabel('Accuracy')
+    plt.legend(['Train', 'Validation'], loc='upper left')
+    plt.show()
+
+def plot_loss(history):
+    # Plot the training loss and validation loss
+    plt.plot(history.history['loss'])
+    plt.plot(history.history['val_loss'])
+    plt.title('Model Loss')
+    plt.xlabel('Epoch')
+    plt.ylabel('Loss')
+    plt.legend(['Train', 'Validation'], loc='upper left')
+    plt.show()
+
+
 # Display the size of the first image in CIFAR-10
 print("CIFAR-10 Image Size:", cifar10_x_train[0].shape)
 
@@ -360,7 +381,7 @@ model = leNet_model()
 print(model.summary())
 
 # # Train the model for 10 epochs
-# history = model.fit(x_train, y_train, epochs=10, validation_split=0.1, batch_size=400, verbose=1, shuffle=1)
+history = model.fit(x_train, y_train, epochs=10, validation_split=0.1, batch_size=400, verbose=1, shuffle=1)
 
 # Evaluate the model on the test set
 evaluate_model(model, x_test, y_test)
