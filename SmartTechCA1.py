@@ -343,3 +343,7 @@ print("X Test shape: ", x_test.shape)
 # One hot encoding
 y_train = to_categorical(y_train, num_of_data)
 y_test = to_categorical(y_test, num_of_data)
+
+# Create the LeNet model with the default parameters
+model = leNet_model()
+print(model.summary())
