@@ -9,7 +9,7 @@ from keras.utils import to_categorical
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
 from tensorflow.keras.optimizers import Adam
-from keras.layers import Conv2D, MaxPooling2D, Dropout, Flatten
+from keras.layers import Conv2D, MaxPooling2D, Dropout, Flatten, GlobalAveragePooling2D
 from keras.preprocessing.image import ImageDataGenerator
 
 # Load CIFAR10 and CIFAR100 data
@@ -184,7 +184,7 @@ def leNet_model():
   # Dropout layer with a dropout rate of 0.5
   model.add(Dropout(0.5))
   # Output layer with 'num_classes' neurons and softmax activation
-  model.add(Dense(num_of_data, activation='softmax'))
+  model.add(Dense(num_of_class, activation='softmax'))
   # Compile the model with Adam optimizer, categorical crossentropy loss, and accuracy metric
   model.compile(Adam(learning_rate=0.001), loss='categorical_crossentropy', metrics=['accuracy'])
   return model
@@ -392,8 +392,8 @@ y_test = to_categorical(y_test, num_of_data)
 model = leNet_model()
 print(model.summary())
 
-# # Train the model for 10 epochs
-history = model.fit(x_train, y_train, epochs=10, validation_split=0.1, batch_size=400, verbose=1, shuffle=1)
+# Train the model
+history = model.fit(datagen.flow(x_train, y_train, batch_size=50), epochs=20 , validation_data=(x_test, y_test))
 
 # Evaluate the model on the test set
 evaluate_model(model, x_test, y_test)
