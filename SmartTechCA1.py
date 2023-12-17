@@ -184,7 +184,7 @@ def leNet_model():
   # Dropout layer with a dropout rate of 0.5
   model.add(Dropout(0.5))
   # Output layer with 'num_classes' neurons and softmax activation
-  model.add(Dense(num_of_class, activation='softmax'))
+  model.add(Dense(num_of_data, activation='softmax'))
   # Compile the model with Adam optimizer, categorical crossentropy loss, and accuracy metric
   model.compile(Adam(learning_rate=0.001), loss='categorical_crossentropy', metrics=['accuracy'])
   return model
@@ -206,7 +206,7 @@ def modified_model():
   model.add(Flatten())
   model.add(Dense(500, activation='relu'))
   model.add(Dropout(0.5))
-  model.add(Dense(num_of_class, activation='softmax'))
+  model.add(Dense(num_of_data, activation='softmax'))
   model.compile(Adam(learning_rate=0.001), loss='categorical_crossentropy', metrics=['accuracy'])
   return model
 
@@ -417,13 +417,13 @@ print(model.summary())
 history = model.fit(datagen.flow(x_train, y_train, batch_size=50), epochs=20 , validation_data=(x_test, y_test))
 
 
-# Create the modified model 
-model = modified_model()
-print(model.summary())
+# # Create the modified model 
+# model = modified_model()
+# print(model.summary())
 
 
-# Train the model
-history = model.fit(datagen.flow(x_train, y_train, batch_size=50), steps_per_epoch=x_train.shape[0]/50, epochs=20, validation_data=(x_test, y_test), verbose=1, shuffle=1)
+# # Train the model
+# history = model.fit(datagen.flow(x_train, y_train, batch_size=50), steps_per_epoch=x_train.shape[0]/50, epochs=20, validation_data=(x_test, y_test), verbose=1, shuffle=1)
 
 
 # Evaluate the model on the test set
