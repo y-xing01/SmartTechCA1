@@ -10,6 +10,7 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
 from tensorflow.keras.optimizers import Adam
 from keras.layers import Conv2D, MaxPooling2D, Dropout, Flatten
+from keras.preprocessing.image import ImageDataGenerator
 
 # Load CIFAR10 and CIFAR100 data
 (cifar10_x_train, cifar10_y_train), (cifar10_x_test, cifar10_y_test) = cifar10.load_data()
@@ -371,6 +372,17 @@ x_test = reshape(x_test_preprocessed)
 print("\nX Train shape: ", x_train.shape)
 print("X Test shape: ", x_test.shape)
 
+datagen = ImageDataGenerator(width_shift_range=0.1, height_shift_range = 0.1, zoom_range = 0.2, shear_range = 0.1, rotation_range=10)
+datagen.fit(x_train)
+batches = datagen.flow(x_train, y_train, batch_size = 20)
+x_batch, y_batch = next(batches)
+
+
+fig, axs = plt.subplots(1, 20, figsize=(20, 5))
+fig.tight_layout()
+for i in range(20):
+  axs[i].imshow(x_batch[i].reshape(32, 32))
+  axs[i].axis('off')
 
 # One hot encoding
 y_train = to_categorical(y_train, num_of_data)
