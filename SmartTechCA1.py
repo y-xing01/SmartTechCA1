@@ -386,3 +386,8 @@ history = model.fit(x_train, y_train, epochs=10, validation_split=0.1, batch_siz
 # Evaluate the model on the test set
 evaluate_model(model, x_test, y_test)
 
+# Plot the training accuracy and validation accuracy
+analyze_model(history)
+
+# Plot the training loss and validation loss
+plot_loss(history)
