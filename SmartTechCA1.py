@@ -2,8 +2,14 @@ import numpy as np
 import random
 import matplotlib.pyplot as plt
 import cv2
+import tensorflow.keras
 from keras.datasets import cifar10, cifar100
 from keras.utils import to_categorical
+from keras.utils import to_categorical
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense
+from tensorflow.keras.optimizers import Adam
+from keras.layers import Conv2D, MaxPooling2D, Dropout, Flatten
 
 # Load CIFAR10 and CIFAR100 data
 (cifar10_x_train, cifar10_y_train), (cifar10_x_test, cifar10_y_test) = cifar10.load_data()
@@ -177,7 +183,7 @@ def leNet_model():
   # Dropout layer with a dropout rate of 0.5
   model.add(Dropout(0.5))
   # Output layer with 'num_classes' neurons and softmax activation
-  model.add(Dense(num_of_class, activation='softmax'))
+  model.add(Dense(num_of_data, activation='softmax'))
   # Compile the model with Adam optimizer, categorical crossentropy loss, and accuracy metric
   model.compile(Adam(learning_rate=0.001), loss='categorical_crossentropy', metrics=['accuracy'])
   return model
@@ -265,7 +271,7 @@ combined_cifar = display_combined_cifar(x_train, y_train, combined_classes, 5)
 # Plot the combined classes (Data Exploration)
 print("\nClasses:", combined_cifar)
 num_of_data = len(combined_cifar)
-plt.figure(figsize=(10, 10))
+plt.figure(figsize=(12, 4))
 plt.bar(range(num_of_data), combined_cifar)
 plt.title("Distribution of Images Across Combined Classes")
 plt.xlabel("Classes")
