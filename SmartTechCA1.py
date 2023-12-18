@@ -2,7 +2,8 @@ import numpy as np
 import random
 import matplotlib.pyplot as plt
 import cv2
-import tensorflow.keras
+import requests
+from PIL import Image
 from keras.datasets import cifar10, cifar100
 from keras.utils import to_categorical
 from keras.utils import to_categorical
@@ -85,42 +86,27 @@ def combine_cifar(cifar10_x_train, cifar10_y_train, cifar10_x_test, cifar10_y_te
     return x_train, y_train, x_test, y_test
 
 # Display combined CIFAR10 and CIFAR100 data
-def display_combined_cifar(x, y, class_labels, num_of_img):
-    num_of_class = len(class_labels)
-    num_of_data = []
-
-    # Ensure axes is always a 2D array, even for a single class
-    fig, axes = plt.subplots(num_of_class, num_of_img, figsize=(2 * num_of_img, 2 * num_of_class))
+def display_combined_cifar(x, y, class_labels, num_of_img=5):
+    num_classes = len(class_labels)
+    cols = num_of_img
+    fig, axes = plt.subplots(num_classes, num_of_img, figsize=(2 * num_of_img, 2 * num_classes))
     plt.tight_layout(pad=3.0, h_pad=1.0, w_pad=0.5)
-
-    # If there's only one class, convert axes to a 2D array
-    if num_of_class == 1:
+    num_of_data = []
+    if num_classes == 1:
         axes = np.array([axes])
+    for i in range(cols):
+        for j, class_label in enumerate(class_labels):
+            indices = np.where(y.flatten() == class_label)[0]
 
-    # Loop through each class
-    for j, class_label in enumerate(class_labels):
-        # Find indices where the label matches the current class
-        indices = np.where(y.flatten() == class_label)[0]
-
-        # Randomly select num_images indices without replacement
-        selected_indices = np.random.choice(indices, num_of_img, replace=False)
-
-        # Loop through each image in the current class
-        for k, index in enumerate(selected_indices):
-            # Display the image on the subplot
-            axes[j, k].imshow(x[index], interpolation='nearest')
-            axes[j, k].axis('off')
-            num_of_data.append(len(indices))
-
-        # Store the number of data points in each class
-
-        # Set the title for the last column of subplots
-        axes[j, -1].set_title(f'Class: {class_label}', size='large')
-
-    # Adjust the spacing of the subplots
+            random_indices = np.random.choice(indices, num_of_img, replace=False)
+            for k, idx in enumerate(random_indices):
+                axes[j, i].imshow(x[idx], interpolation='nearest')
+                axes[j, i].axis('off')
+                if i == cols - 1: 
+                    num_of_data.append(len(indices))
+                    axes[j, i].set_title(f'Class: {class_label}', size='large')
+    plt.subplots_adjust(left=None, bottom=None, right=None, top=None, wspace=None, hspace=0.3)
     plt.show()
-
-    # Return the number of data points in each class
     return num_of_data
 
 # Apply grayscale filter
@@ -295,6 +281,8 @@ plot_filtered_cifar(cifar100_x_train_filtered, cifar100_y_train_filtered, cifar1
 
 
 # Combine CIFAR10 and CIFAR100 data using the combine_cifar function
+cifar100_y_train_filtered += 10
+cifar100_y_test_filtered += 10
 x_train, y_train, x_test, y_test = combine_cifar(
     cifar10_x_train_filtered, cifar10_y_train_filtered,
     cifar10_x_test_filtered, cifar10_y_test_filtered,
@@ -313,7 +301,7 @@ print("Combined Test Shape:", x_test.shape, y_test.shape)
 print("Combined Classes:", combined_classes)
 
 # Display images from combined dataset
-combined_cifar = display_combined_cifar(x_train, y_train, combined_classes, 5)
+combined_cifar = display_combined_cifar(x_train, y_train, combined_classes)
 
 
 # Plot the combined classes (Data Exploration)
@@ -375,8 +363,8 @@ plt.show()
 # plt.show()
 
 # Plot preprocessed image
-x_train_preprocessed = np.array(list(map(preprocess, x_train)))
-x_test_preprocessed = np.array(list(map(preprocess, x_test)))
+x_train = np.array(list(map(preprocess, x_train)))
+x_test = np.array(list(map(preprocess, x_test)))
 
 # Randomly select an image from the training set
 random_index = np.random.choice(len(x_train))
@@ -387,8 +375,8 @@ plt.axis("off")
 
 
 # Reshape data 
-x_train = reshape(x_train_preprocessed)
-x_test = reshape(x_test_preprocessed)
+x_train = reshape(x_train)
+x_test = reshape(x_test)
 
 print("\nX Train shape: ", x_train.shape)
 print("X Test shape: ", x_test.shape)
@@ -434,3 +422,16 @@ analyze_model(history)
 
 # Plot the training loss and validation loss
 plot_loss(history)
+
+# Predicting image
+# url = "https://cdn.pixabay.com/photo/2016/12/13/22/25/bird-1905255_1280.jpg"
+url = "https://cdn.pixabay.com/photo/2017/06/11/10/46/truck-2391940_1280.jpg"
+r = requests.get(url, stream=True)
+img = Image.open(r.raw)
+plt.imshow(img, cmap=plt.get_cmap('gray'))
+
+img = np.asarray(img)
+img = cv2.resize(img, (32, 32))
+img = preprocess(img)
+img = img.reshape(1, 32, 32, 1)
+print("Predicted Image: " + str(np.argmax(model.predict(img), axis=-1)))
