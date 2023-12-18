@@ -245,6 +245,7 @@ print("CIFAR-10 Image Size:", cifar10_x_train[0].shape)
 print("CIFAR-100 Image Size:", cifar100_x_train[0].shape)
 
 
+
 # Count the number of labels for each image in CIFAR-10
 cifar10_label_counts = np.sum(cifar10_y_train, axis=1)
 print("CIFAR-10 Label Counts:", cifar10_label_counts)
@@ -315,6 +316,11 @@ print("Combined Test Shape:", x_test.shape, y_test.shape)
 # Display the unique combined classes
 print("Combined Classes:", combined_classes)
 
+# Total number of images for training and testing sets
+total_train_images = x_train.shape[0]
+total_test_images = x_test.shape[0]
+
+
 # Display images from combined dataset
 combined_cifar = display_combined_cifar(x_train, y_train, combined_classes)
 
@@ -329,6 +335,17 @@ plt.xlabel("Classes")
 plt.ylabel("Number of Data")
 plt.show()
 
+
+# Total number of images for each of the 24 classes
+num_images_per_class = [np.sum(y_train[:, i]) for i in range(num_of_data)]
+
+# Display the results
+print("Total Training Images:", total_train_images)
+print("Total Testing Images:", total_test_images)
+print("\nNumber of Images for Each Class:")
+for i in range(min(len(combined_classes), len(num_images_per_class))):
+    print(f"Class {combined_classes[i]}: {num_images_per_class[i]}")
+    
 
 # # Plot grayscale image
 # img = x_train[0]
