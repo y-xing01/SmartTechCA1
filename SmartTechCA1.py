@@ -89,22 +89,37 @@ def combine_cifar(cifar10_x_train, cifar10_y_train, cifar10_x_test, cifar10_y_te
 def display_combined_cifar(x, y, class_labels, num_of_img=5):
     num_classes = len(class_labels)
     cols = num_of_img
+    
+    # Create a subplot grid with dimensions (num_classes, num_of_img)
     fig, axes = plt.subplots(num_classes, num_of_img, figsize=(2 * num_of_img, 2 * num_classes))
+    
+    # Adjust the layout for better spacing
     plt.tight_layout(pad=3.0, h_pad=1.0, w_pad=0.5)
     num_of_data = []
+    
+    # If there's only one class, convert axes to a 2D array
     if num_classes == 1:
         axes = np.array([axes])
     for i in range(cols):
         for j, class_label in enumerate(class_labels):
+            # Find indices where the label matches the current class
             indices = np.where(y.flatten() == class_label)[0]
-
+            
+            # Randomly select num_of_img indices without replacement
             random_indices = np.random.choice(indices, num_of_img, replace=False)
+            
+            # Loop through each image in the current class
             for k, idx in enumerate(random_indices):
+                # Display the image on the subplot
                 axes[j, i].imshow(x[idx], interpolation='nearest')
                 axes[j, i].axis('off')
+                
+                # Set the title for the last column of subplots
                 if i == cols - 1: 
                     num_of_data.append(len(indices))
                     axes[j, i].set_title(f'Class: {class_label}', size='large')
+                    
+    # Adjust the spacing of the subplots
     plt.subplots_adjust(left=None, bottom=None, right=None, top=None, wspace=None, hspace=0.3)
     plt.show()
     return num_of_data
@@ -381,12 +396,15 @@ x_test = reshape(x_test)
 print("\nX Train shape: ", x_train.shape)
 print("X Test shape: ", x_test.shape)
 
+# Create an ImageDataGenerator with specified augmentation parameters
+# Randomly shift, zoom, shear and rotate images
 datagen = ImageDataGenerator(width_shift_range=0.1, height_shift_range = 0.1, zoom_range = 0.2, shear_range = 0.1, rotation_range=10)
 datagen.fit(x_train)
+# Generate batches of augmented data
 batches = datagen.flow(x_train, y_train, batch_size = 20)
 x_batch, y_batch = next(batches)
 
-
+# Create subplots to visualize the augmented images
 fig, axs = plt.subplots(1, 20, figsize=(20, 5))
 fig.tight_layout()
 for i in range(20):
@@ -423,13 +441,36 @@ analyze_model(history)
 # Plot the training loss and validation loss
 plot_loss(history)
 
+
+# Testing model by tweaking hyperparameters
+# epoch 5 (Underfitting)
+# loss: 2.0014 - accuracy: 0.3958 - val_loss: 1.7752 - val_accuracy: 0.4612 
+# epoch 15
+# loss: 1.6859 - accuracy: 0.4864 - val_loss: 1.5435 - val_accuracy: 0.5329
+# epoch 20 (Best result)
+# loss: 1.5198 -  loss: 1.6576 - accuracy: 0.4969 - val_loss: 1.4822 - val_accuracy: 0.5501
+# epoch 30
+# loss: 1.6562 - accuracy: 0.4949 - val_loss: 1.4517 - val_accuracy: 0.5566
+# epoch 50 (Overfitting)
+# loss: 0.8819 - accuracy: 0.7050 - val_loss: 1.8727 - val_accuracy: 0.5008 
+
+# epoch 20 conv2d from 60/30 to 140/70
+# loss: 1.6176 - accuracy: 0.5056 - val_loss: 1.4454 - val_accuracy: 0.5562
+
+
+
 # Predicting image
+# Bird
 # url = "https://cdn.pixabay.com/photo/2016/12/13/22/25/bird-1905255_1280.jpg"
-url = "https://cdn.pixabay.com/photo/2017/06/11/10/46/truck-2391940_1280.jpg"
+# Truck
+# url = "https://cdn.pixabay.com/photo/2017/06/11/10/46/truck-2391940_1280.jpg"
+# Tree
+url = "https://cdn.pixabay.com/photo/2018/01/21/19/57/tree-3097419_1280.jpg"
 r = requests.get(url, stream=True)
 img = Image.open(r.raw)
 plt.imshow(img, cmap=plt.get_cmap('gray'))
 
+# Convert the PIL image to a NumPy array
 img = np.asarray(img)
 img = cv2.resize(img, (32, 32))
 img = preprocess(img)
